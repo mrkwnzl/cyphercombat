@@ -16,4 +16,28 @@ Hooks.on('init', () => {
         if (data.operation === 'toggleHidden') toggleHidden(data.combatant);
     });
 
+    game.settings.register('cyphercombat', 'token-image', {
+        name: game.i18n.localize("CYPHER-COMBAT.token-img.Name"),
+        default: false,
+        type: Boolean,
+        scope: 'world',
+        config: true,
+        hint: game.i18n.localize("CYPHER-COMBAT.token-img.Hint"),
+        onChange: () => setTimeout(() => {
+            location.reload();
+         }, 500)
+    });
+
+    game.settings.register('cyphercombat', 'combatant-color', {
+        name: game.i18n.localize("CYPHER-COMBAT.combatant-color.Name"),
+        default: true,
+        type: Boolean,
+        scope: 'world',
+        config: true,
+        hint: game.i18n.localize("CYPHER-COMBAT.combatant-color.Hint"),
+        onChange: () => setTimeout(() => {
+            location.reload();
+         }, 500)
+    });
+
 });

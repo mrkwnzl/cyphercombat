@@ -1,10 +1,20 @@
 <ol id="combat-tracker" class="directory-list combatants">
   {{#each combatants as |c|}}
   {{#if (or c.isOwner (eq c.hidden false))}}
-  <li class="combatant {{#if c.hidden}}hidden{{/if}} {{#if (eq c.actor.data.type "PC")}}PC{{else}}{{disposition c.token.data.disposition}}{{/if}} directory-item actor-elem {{#if c.active}}active{{/if}}" data-actor-id="{{c.actor.data._id}}" data-token-id="{{c.tokenId}}" data-combatant-id="{{this.id}}" data-actor-type="{{c.actor.data.type}}">
+  <li class="combatant {{#if c.hidden}}hidden{{/if}} 
+    {{#if c.combatantColor}}
+      {{#if (eq c.actor.data.type "PC")}}PC{{else}}{{disposition c.token.data.disposition}}{{/if}} 
+    {{/if}}
+    directory-item actor-elem {{#if c.active}}active{{/if}}" data-actor-id="{{c.actor.data._id}}" data-token-id="{{c.tokenId}}" data-combatant-id="{{this.id}}" data-actor-type="{{c.actor.data.type}}">
     {{!-- Token image --}}
     <section class="img">
-      <img class="token-image" id="combat-img" src="{{c.actor.img}}" alt="Thumbnail image for {{c.name}}">
+      <img class="token-image" id="combat-img" src="
+      {{#if c.tokenImg}}
+        {{c.img}}
+      {{else}}
+        {{c.actor.img}}
+      {{/if}}
+      " alt="Thumbnail image for {{c.name}}">
       <div class="token-initiative">
         {{#if c.hasRolled}}
         {{#if (eq c.actor.data.type "PC")}}
@@ -181,7 +191,7 @@
       </div>
       <div class="combatant-values grid-span-2">
         <div class="combat-input">
-          <p class="truncate" title="Weapons">Weapons</p>
+          <p class="truncate" title="{{localize 'CYPHERSYSTEM.Weapons'}}">{{localize 'CYPHERSYSTEM.Weapons'}}</p>
           {{#if (or c.isOwner c.isObserver)}}
           <p>{{c.actor.data.data.weaponSystems}}</p>
           {{else}}<p>?</p>{{/if}}
@@ -211,7 +221,7 @@
       </div>
       <div class="combatant-values grid-span-2">
         <div class="combat-input">
-          <p class="truncate" title="Max">Max</p>
+          <p class="truncate" title="{{localize 'CYPHERSYSTEM.Max'}}">{{localize 'CYPHERSYSTEM.Max'}}</p>
           {{#if (or c.isOwner c.isObserver)}}
           <p>{{c.actor.data.data.quantity.max}}</p>
           {{else}}<p>?</p>{{/if}}
